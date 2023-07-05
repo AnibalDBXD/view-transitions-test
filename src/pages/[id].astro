@@ -1,0 +1,28 @@
+---
+import { items } from '../data/items';
+import Layout from '../layouts/Layout.astro';
+import getViewTransitionStyle from '../utils/getViewTransitionStyle';
+
+const { id } = Astro.params
+
+const info = items.find(item => item.id === id)
+
+if (!info) {
+  return Astro.redirect("/404")
+}
+
+---
+
+<Layout title={`Welcome to ${info.title}`}>
+	<main>
+    <img
+      src={info.image}
+      alt={info.title}
+      style={getViewTransitionStyle(info.id, "image")}
+    />
+    <h1
+    >{info.title}</h1>
+    <p
+    >{info.description}</p>
+  </main>
+</Layout>
